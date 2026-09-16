@@ -1,7 +1,11 @@
 // Todas as faculdades avaliadas no processo de transferência.
 // `deadlineDate` é usado para ordenar a aba de Prazos (null = rolling/sem data fixa).
-// Os campos de custo trazem tanto o valor de lista (sticker price) quanto uma
-// estimativa de custo real após bolsa/ajuda, para facilitar a comparação.
+// Os campos de custo trazem valor de lista, custo só com bolsa acadêmica, só com
+// bolsa esportiva (35%) e uma estimativa combinada (soma simples dos dois
+// descontos) — combinedCostLow/High ficam null quando não dá pra calcular.
+
+export const COMBINED_SCHOLARSHIP_DISCLAIMER =
+  'Estimativa aproximada (soma simples dos dois descontos sobre o valor de lista) — não é um valor garantido. O valor real combinado depende do teto de bolsas de cada faculdade e da decisão do técnico do time e do setor financeiro.'
 
 export const colleges = [
   {
@@ -18,6 +22,11 @@ export const colleges = [
     netCostLow: 31000,
     netCostHigh: 31000,
     netCostNote: 'Custo médio real informado após ajuda financeira',
+    hasAthleticScholarship: true,
+    athleticCostLow: 34125,
+    athleticCostHigh: 34125,
+    combinedCostLow: 12600,
+    combinedCostHigh: 12600,
     pros: ['Custo real baixo na prática', 'Aceita bem estudantes de transferência'],
     cons: ['Reputação de mercado menor'],
   },
@@ -35,6 +44,8 @@ export const colleges = [
     netCostLow: null,
     netCostHigh: null,
     netCostNote: 'Já é o custo mais baixo da lista por ser pública; bolsas podem reduzir ainda mais',
+    hasAthleticScholarship: false,
+    athleticNote: 'Não oferece bolsa esportiva — Divisão III, proibido pela regra da NCAA',
     pros: ['Reputação forte em business/finanças', 'Custo muito menor que as privadas'],
     cons: ['Menos "prestígio" de faculdade privada tradicional'],
   },
@@ -52,6 +63,11 @@ export const colleges = [
     netCostLow: 77000,
     netCostHigh: 89500,
     netCostNote: 'Estimativa só para quem entra no top 10% (GPA mínimo alto exigido)',
+    hasAthleticScholarship: true,
+    athleticCostLow: 66300,
+    athleticCostHigh: 66300,
+    combinedCostLow: 41300,
+    combinedCostHigh: 53800,
     pros: ['Ótima reputação', 'Dá bolsa de mérito relevante'],
     cons: ['Vaga específica para Gabelli é bem limitada'],
   },
@@ -69,6 +85,11 @@ export const colleges = [
     netCostLow: 30000,
     netCostHigh: 45000,
     netCostNote: 'Estimativa combinando lista e faixa de bolsa',
+    hasAthleticScholarship: true,
+    athleticCostLow: 34000,
+    athleticCostHigh: 35750,
+    combinedCostLow: 13750,
+    combinedCostHigh: 23800,
     pros: ['Bolsa forte', 'Processo tranquilo', 'Localização na Flórida'],
     cons: ['Menos peso de mercado que as faculdades de NY'],
   },
@@ -86,6 +107,12 @@ export const colleges = [
     netCostLow: null,
     netCostHigh: null,
     netCostNote: 'Depende do mérito avaliado — sem valor de bolsa divulgado',
+    hasAthleticScholarship: true,
+    athleticCostLow: 52650,
+    athleticCostHigh: 54600,
+    combinedCostLow: null,
+    combinedCostHigh: null,
+    combinedNote: 'Bolsa acadêmica existe, valor a confirmar com a faculdade — sem esse número não dá para estimar a combinada',
     pros: ['Boa reputação', 'Não exige SAT/ACT nem carta de recomendação'],
     cons: ['Caro', 'Sem admissão rolling — todos os candidatos são avaliados juntos no prazo'],
   },
@@ -103,6 +130,11 @@ export const colleges = [
     netCostLow: 67000,
     netCostHigh: 81000,
     netCostNote: 'Estimativa combinando lista e bolsa máxima',
+    hasAthleticScholarship: true,
+    athleticCostLow: 52650,
+    athleticCostHigh: 61750,
+    combinedCostLow: 38650,
+    combinedCostHigh: 47750,
     pros: ['Tradição de receber transferidos', 'Localização em NYC'],
     cons: ['Preço de lista alto mesmo com bolsa'],
   },
@@ -120,6 +152,8 @@ export const colleges = [
     netCostLow: 100000,
     netCostHigh: 100000,
     netCostNote: 'Sem bolsa institucional, custo real tende a ficar perto do valor de lista',
+    hasAthleticScholarship: false,
+    athleticNote: 'Não oferece bolsa esportiva — Divisão III, proibido pela regra da NCAA',
     pros: ['Nome mais forte em business em NY'],
     cons: ['Extremamente concorrido', 'Sem bolsa própria', 'Só entrada em fall'],
   },

@@ -4,8 +4,8 @@ const usd = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0,
 })
 
-export function formatRange(low, high) {
-  if (low == null || high == null) return 'Não divulgado'
+export function formatRange(low, high, fallback = 'Não divulgado') {
+  if (low == null || high == null) return fallback
   if (low === high) return usd.format(low)
   return `${usd.format(low)} – ${usd.format(high)}`
 }
