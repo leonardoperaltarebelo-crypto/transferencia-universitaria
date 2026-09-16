@@ -22,12 +22,19 @@ function DeadlineBadge({ college }) {
   )
 }
 
+function academicText(college) {
+  if (college.netCostText) return college.netCostText
+  return formatRange(college.netCostLow, college.netCostHigh)
+}
+
 function athleticText(college) {
+  if (college.athleticCostText) return college.athleticCostText
   if (college.hasAthleticScholarship === false) return 'Não oferece (D3)'
   return formatRange(college.athleticCostLow, college.athleticCostHigh)
 }
 
 function combinedText(college) {
+  if (college.combinedCostText) return college.combinedCostText
   if (college.hasAthleticScholarship === false) return 'Não oferece (D3)'
   return formatRange(college.combinedCostLow, college.combinedCostHigh, 'Não calculável')
 }
@@ -62,7 +69,7 @@ function ComparisonTable({ items }) {
                 <span className="text-slate-400">/ano</span>
               </td>
               <td className="px-4 py-3 whitespace-nowrap font-medium text-emerald-700">
-                {formatRange(c.netCostLow, c.netCostHigh)}
+                {academicText(c)}
                 {c.netCostLow != null && <span className="font-normal text-slate-400">/ano</span>}
               </td>
               <td className="px-4 py-3 whitespace-nowrap font-medium text-sky-700">
@@ -123,12 +130,11 @@ function CollegeCard({ college }) {
           <p className="text-sm font-semibold text-slate-800">
             {formatRange(college.listCostLow, college.listCostHigh)}
           </p>
+          {college.listCostNote && <p className="mt-0.5 text-[11px] text-slate-500">{college.listCostNote}</p>}
         </div>
         <div>
           <p className="text-xs font-medium text-slate-500">Acadêmica</p>
-          <p className="text-sm font-semibold text-emerald-700">
-            {formatRange(college.netCostLow, college.netCostHigh)}
-          </p>
+          <p className="text-sm font-semibold text-emerald-700">{academicText(college)}</p>
           {college.netCostNote && <p className="mt-0.5 text-[11px] text-slate-500">{college.netCostNote}</p>}
         </div>
         <div>
